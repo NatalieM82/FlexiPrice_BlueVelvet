@@ -1,0 +1,192 @@
+<!-- views/layouts/experiment.handlebars -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="User Authentication">
+  <meta name="author" content="">
+
+  <title>Rating</title>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/runningExperimentStyle.css">
+  <link href='http://fonts.googleapis.com/css?family=Dosis:400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
+ </head>
+<body>
+  <section id="wrapper"> 
+    <section class="aContainer">
+        <section id="top">
+          <section id="scoreArea">
+            Your Current Score is: <article id="score"></article> 
+          </section>
+          <section id="walletArea">
+            Your current Wallet: <article id="wallet"></article> 
+          </section>
+         </section>
+        
+        <section id="ratingArea" class="ratingCenter">
+
+            <h3 class="header1">{{header}}</h3>
+            <h4 class="header2">{{subHeader}}</h4>
+            
+            <div class="table-responsive ratingTableBorderRadius">
+                <table class="table table-bordered table-hover table-striped" id="keywords1" cellspacing="0" cellpadding="0">
+                    <thead class="ratingTableHeader">
+                      <tr>
+                        <th><span>Question</span></th>
+                        <th><span>Name</span></th>
+                        <th><span>Tip</span></th>
+                        <th><span>Rating</span></th>
+                      </tr>
+                    </thead>
+                  
+                </table>
+            </div>
+                  
+        </section>  
+
+        <button class="btn btn-default submitStyle ratingSubmit" type="submit" value="Submit" onclick="submitAll()" id="submitBTN">Submit</button>
+
+    </section>
+ </section>  
+</body>
+</html>
+
+<script type="text/javascript">
+  document.getElementById("wallet").innerHTML = sessionStorage.getItem("wallet");
+  document.getElementById("score").innerHTML = sessionStorage.getItem("score");
+function submitAll(){
+          var totalTip = 0;
+          //Getting Tip and rating
+          
+          var i=1;
+          while (sessionStorage.getItem("question"+i)){
+            var questionTemp = JSON.parse(sessionStorage.getItem("question"+i));
+            var products = questionTemp["products"];
+            
+            for(var j=0; j<products.length; j++){
+
+              var num = j+1;
+              var tip = document.getElementById("tip"+i+num).value;
+              totalTip += JSON.parse(tip);
+
+              //var rate = document.getElementById("rate"+i+num).value;
+              var rate = $("input:radio[name='rating"+i+num+"']:checked").val();
+              products[j]["revealed_price"] = tip;
+              products[j]["rating"] = rate;
+            }
+            questionTemp["products"] = products;
+            sessionStorage.setItem("question"+i, JSON.stringify(questionTemp));
+
+            i++;
+          }
+
+          var questionsArray = [];
+
+          var j=1;
+          while (sessionStorage.getItem("question"+j)){
+            questionsArray.push(JSON.parse(sessionStorage.getItem("question"+j)));
+            j++;
+          }
+
+          var data = {};
+          data.iteration = sessionStorage.getItem("iteration");
+          data.sessionID = sessionStorage.getItem("sessionID");
+          data.name = sessionStorage.getItem("name");
+          data.numOfquestions = i-1;
+          data.grade = sessionStorage.getItem("score");
+          data.balance = sessionStorage.getItem("wallet") - totalTip;
+          data.question_array = questionsArray;
+
+          var request = $.ajax({
+            url: "/iterationSubmit",
+            async: false,
+            type: "POST",
+            data: data,
+            contentType: "application/x-www-form-urlencoded", //This is what made the difference.
+            dataType: "json",
+          });
+
+
+          request.success(function(result) {
+              window.location.href = '/ExperimentConclusion:'+{{exp_id}};
+          });
+
+          request.fail(function(jqXHR, textStatus) {
+              alert("Request failed: " + textStatus);
+          });
+
+
+        }
+
+        window.onload = function(){
+          tipWallet = sessionStorage.getItem("wallet");
+          document.getElementById("ratingArea").style.display = "block";
+
+          var tbl=document.getElementById('keywords1');
+          var tbdy=document.createElement('tbody');
+          tbdy.className = "ratingTableStyle";
+          
+            var i=1;
+            while (sessionStorage.getItem("question"+i)){
+                var quesNum = i;
+                var temp = JSON.parse(sessionStorage.getItem("question"+quesNum));
+                var products = temp["products"];
+
+                for(var j=0; j<products.length; j++){
+                  var tr=document.createElement('tr');
+                  var name = products[j]["name"];
+                  var prodNum = j+1;
+                  for(var k=0;k<4;k++){
+                      var td=document.createElement('td');
+                      td.style.textAlign = "center";
+                      if(k==0) td.innerText = quesNum; 
+                      if (name == "") name = "You didn't choose any item in this question"
+                      if (k==1 ) td.innerHTML = name;
+                      if (k == 2) td.innerHTML = "<input class='numStyle' type='number' id='tip" +quesNum+prodNum+ "' name='tip' min='0' step='1' value='0' onchange='checkValidTip(this.value)'>";
+                      if (k==3) {
+                          tempRate = '<span class="star-rating">';
+                          tempRate+= '<input type="radio" name="rating'+quesNum+prodNum+'" id="rate'+quesNum+prodNum+'" value="1"><i></i>';
+                          tempRate+= '<input type="radio" name="rating'+quesNum+prodNum+'" id="rate'+quesNum+prodNum+'" value="2"><i></i>';
+                          tempRate+= '<input type="radio" name="rating'+quesNum+prodNum+'" id="rate'+quesNum+prodNum+'" value="3"><i></i>';
+                          tempRate+= '<input type="radio" name="rating'+quesNum+prodNum+'" id="rate'+quesNum+prodNum+'" value="4"><i></i>';
+                          tempRate+= '<input type="radio" name="rating'+quesNum+prodNum+'" id="rate'+quesNum+prodNum+'" value="5"><i></i>';
+                          tempRate+= '</span>';
+
+                      var myString = tempRate;
+                          myString = $("<div />").html(myString);
+                          $(td).append(myString);
+                      }
+                     
+                      tr.appendChild(td)
+                  }
+                tbdy.appendChild(tr);
+
+                }
+                i++;
+            }
+            tbl.appendChild(tbdy);
+
+        }
+
+        function checkValidTip(tip){
+          if((tipWallet - tip) < 0)
+          {
+            alert("You don't have enough money to tip this high");
+            document.getElementById('submitBTN').disabled = true;
+          }
+          else {
+            document.getElementById('submitBTN').disabled = false;
+            tipWallet -= tip
+          }
+
+        }
+
+</script>
