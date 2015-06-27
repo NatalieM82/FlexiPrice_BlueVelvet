@@ -273,7 +273,7 @@ function upload_file(file, signed_request, url){
             document.getElementById("imgPlace").src = url;
             document.getElementById("file_url").value = url;
             document.getElementById('submitBTN').disabled = false;
-            document.getElementById("submitBTN").className = "submitStyle";
+            document.getElementById("submitBTN").className = "btn btn-default submitStyle";
         }
     };
     xhr.onerror = function() {
