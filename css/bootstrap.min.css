@@ -1548,11 +1548,11 @@ th {
     //background: rgba(53, 118, 99, 1);
     color: #EEE;
     transition: 0.1s;
+    cursor: pointer;
+    cursor: hand;
 }
 
-.table-hover>tbody>tr>td>a:hover {
-    color: #EEE;
-}
+
 
 table col[class*=col-] {
     position: static;
