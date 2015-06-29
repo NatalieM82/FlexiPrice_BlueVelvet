@@ -317,6 +317,17 @@ ul.alert-dropdown {
     background-color: #373e57;
 }
 
+
+#surveyGizmoLI:hover .survey {
+    color: #F8A02E;
+    transition:0.5s ;
+}
+
+#surveyGizmoLI:hover .gizmo {
+    color: #3AAACA;
+    transition:0.5s ;
+}
+
 .panel-btm-clr {
 	background-color: #649e86;
 }
@@ -327,8 +338,6 @@ ul.alert-dropdown {
 	//box-shadow:  0px 3px 0px 1px #373e57;
 	background: none;
 }
-
-
 
 .nextBreadcrumb {
 	color: #649E86;

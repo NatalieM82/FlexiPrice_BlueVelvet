@@ -71,7 +71,7 @@ window.onload = function () {
                         </ul>
                     </li>
                      <li>
-                        <a href="javascript:" data-toggle="collapse" data-target="#CatCollapse"><i class="fa fa-fw fa-tasks"></i> Categories <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:" data-toggle="collapse" data-target="#CatCollapse"><i class="fa fa-fw fa-tasks"></i> Catalogs <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="CatCollapse" class="collapse.in">
                             <li>
                                 <a href="/NewCategory" class="subMenuActive">Create a New</a>
@@ -87,8 +87,8 @@ window.onload = function () {
                      <li>
                         <a href="Help.pdf" target="_blank"><i class="fa fa-fw fa-info"></i> Help</a>
                     </li>
-                     <li>
-                        <a href="http://www.surveygizmo.com" target="_blank"><i class="fa fa-fw fa-link"></i> SurveyGizmo</a>
+                     <li id="surveyGizmoLI">
+                        <a href="http://www.surveygizmo.com" target="_blank"><i class="fa fa-fw fa-link"></i> <span class="survey">survey</span><span class="gizmo">gizmo</span></a>
                     </li>
                 </ul>
             </div>
@@ -106,14 +106,14 @@ window.onload = function () {
                             </li>
                             &nbsp<i class="fa fa-angle-right nextBreadcrumb"> </i>&nbsp
                             <li class="active">
-                                <i class="fa fa-tasks"></i> New Category
+                                <i class="fa fa-tasks"></i> New Catalog
                             </li>
                    </ol>
                 
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header groovyBorder">
-                           Create a New <small>Category</small>
+                           Create a New <small>Catalog</small>
                         </h1>
                     </div>
                 </div>
@@ -123,12 +123,12 @@ window.onload = function () {
 	                 
 	                 <section id="newCatStepOne">
 			                 <div class="form-group">
-	                                <label>Category's Name: </label>
+	                                <label>Catalog's Name: </label>
 	                                  <input type="text" class="form-control formStyle" name="name" required>
 			                 </div>
 			                 
 			                 <div class="form-group">
-	                                <label>Category's Description: </label>
+	                                <label>Catalog's Description: </label>
 	                                <textarea class="form-control textStyle formStyle" name="message" rows="10"></textarea>
 	                                
                             </div>
@@ -139,7 +139,7 @@ window.onload = function () {
 						     </section>
                               
                             <dialog id="styledModal">
-                                <p>You've successfully create a new category! <br> But... a new category is a lonley place.<br> Now, create at least one product</p>
+                                <p>You've successfully create a new catalog! <br> But... a new catalog is a lonley place.<br> Now, create at least one product</p>
                                 <button class="btn btn-default nextStyle" id="closeBTN">Okay</button>
                             </dialog>
 			                 

@@ -88,7 +88,7 @@ $(document).ready(function() {
                         </ul>
                     </li>
                      <li>
-                        <a href="javascript:" data-toggle="collapse" data-target="#CatCollapse"><i class="fa fa-fw fa-tasks"></i> Categories <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:" data-toggle="collapse" data-target="#CatCollapse"><i class="fa fa-fw fa-tasks"></i> Catalogs <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="CatCollapse" class="collapse">
                             <li>
                                 <a href="/NewCategory">Create a New</a>
@@ -104,8 +104,8 @@ $(document).ready(function() {
                      <li>
                         <a href="Help.pdf" target="_blank"><i class="fa fa-fw fa-info"></i> Help</a>
                     </li>
-                     <li>
-                        <a href="http://www.surveygizmo.com" target="_blank"><i class="fa fa-fw fa-link"></i> SurveyGizmo</a>
+                    <li id="surveyGizmoLI">
+                        <a href="http://www.surveygizmo.com" target="_blank"><i class="fa fa-fw fa-link"></i> <span class="survey">survey</span><span class="gizmo">gizmo</span></a>
                     </li>
                 </ul>
             </div>
@@ -184,7 +184,7 @@ $(document).ready(function() {
 										            </div>
 										            {{/items}}
 										            <div class="form-group">
-						                                <label>Associate with a Category </label>
+						                                <label>Associate with a Catalog </label>
 						                                <select class="form-control formStyle" name="Categories" id="Categories">
 						                                    {{#each categories}}
                                                                    <option value="{{category_id}}">{{category_name}}</option>
