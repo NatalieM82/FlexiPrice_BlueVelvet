@@ -454,7 +454,7 @@
 
 /* source area */
 .jqte_source, .jqte_source textarea {
-	background:#FFF1E8
+	background:rgba(36, 39, 53, 1);
 }
 .jqte_source textarea {
 	margin:0 !important;
