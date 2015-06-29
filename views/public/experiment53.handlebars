@@ -44,6 +44,11 @@
               <button class="okayStyle" id="priceLowBTN">Okay</button>
         </dialog>
 
+        <dialog class="styledModal" id="maxTriesDialog">
+              <p>You've maximized your tries. You can't answer this question.</p>
+              <button class="okayStyle" id="maxTriesBTN">Okay</button>
+        </dialog>
+
         <dialog class="styledModal" id="showPricesDialog">
               <p>{{details.1.showPricesON}}</p>
               <button class="cancelStyle" id="showPricesNoBTN">No</button>
@@ -120,6 +125,17 @@ document.getElementById('priceLowBTN').onclick = function() {
 function priceLow() {
   console.log("Too low");
   priceLowDialog.showModal();
+}
+
+var maxTriesDialog = document.getElementById('maxTriesDialog');
+document.getElementById('maxTriesBTN').onclick = function() {
+  maxTriesDialog.close();
+  document.getElementById('sg_NextButton').click();
+}
+
+function maxTries() {
+  console.log("Too low");
+  maxTriesDialog.showModal();
 }
 
 
